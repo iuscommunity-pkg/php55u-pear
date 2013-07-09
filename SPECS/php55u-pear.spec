@@ -3,18 +3,18 @@
 
 %global xmlrpcver 1.5.1
 %global getoptver 1.2.3
-%global arctarver 1.3.3
+%global arctarver 1.3.11
 %global structver 1.0.2
 %global xmlutil   1.2.1
 
-%define php_base php55
+%define php_base php55u
 %define basever 1.9
 %define real_name php-pear
 %define name %{php_base}-pear
 Summary: PHP Extension and Application Repository framework
 Name: %{name}
 Version: 1.9.4
-Release: 3.ius%{?dist}
+Release: 4.ius%{?dist}
 Epoch: 1
 License: PHP
 Group: Development/Languages
@@ -176,6 +176,10 @@ rm new-pear.conf
 
 
 %changelog
+* Tue Jul 09 2013 Ben Harper <ben.harper@rackspace.com> - 1:1.9.4-4.ius
+- renaming to php55u-pear
+- updating version arctarver, thanks remi
+
 * Tue Jul 02 2013 Ben Harper <ben.harper@rackspace.com> - 1:1.9.4-3.ius 
 - porting from php54-pear
 
