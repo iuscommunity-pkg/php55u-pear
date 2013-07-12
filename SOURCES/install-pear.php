@@ -1,6 +1,6 @@
 <?php
-
-/* $Id: install-pear.php,v 1.5 2009/05/30 08:19:19 remi Exp $ */
+while (@ob_end_flush());
+/* $Id$ */
 
 error_reporting(1803);
 
@@ -40,10 +40,10 @@ $debug = false;
 for ($i = 0; $i < sizeof($argv); $i++) {
     $arg = $argv[$i];
     $bn = basename($arg);
-    if (ereg('package-(.*)\.xml$', $bn, $matches) ||
-        ereg('([A-Za-z0-9_:]+)-.*\.(tar|tgz)$', $bn, $matches)) {
+    if (preg_match('/package-(.*)\.xml$/', $bn, $matches) ||
+        preg_match('/([A-Za-z0-9_:]+)-.*\.(tar|tgz)$/', $bn, $matches)) {
         $install_files[$matches[1]] = $arg;
-    } elseif ($arg == '-a') {
+    } elseif ($arg == '-a' || $arg == '--cache') {
         $cache_dir = $argv[$i+1];
         $i++;
     } elseif ($arg == '--force') {
@@ -54,26 +54,38 @@ for ($i = 0; $i < sizeof($argv); $i++) {
     } elseif ($arg == '-ds') {
         $suffix = $argv[$i+1];
         $i++;
-    } elseif ($arg == '-d') {
+    } elseif ($arg == '-d' || $arg == '--dir') {
         $with_dir = $argv[$i+1];
         $i++;
-    } elseif ($arg == '-b') {
+    } elseif ($arg == '-b' || $arg == '--bin') {
         $bin_dir = $argv[$i+1];
         $i++;
-    } elseif ($arg == '-c') {
+    } elseif ($arg == '-c' || $arg == '--config') {
         $cfg_dir = $argv[$i+1];
         $i++;
-    } elseif ($arg == '-w') {
+    } elseif ($arg == '-w' || $arg == '--www') {
         $www_dir = $argv[$i+1];
         $i++;
-    } elseif ($arg == '-p') {
+    } elseif ($arg == '-p' || $arg == '--php') {
         $php_bin = $argv[$i+1];
         $i++;
-    } elseif ($arg == '-o') {
+    } elseif ($arg == '-o' || $arg == '--download') {
         $download_dir = $argv[$i+1];
         $i++;
-    } elseif ($arg == '-t') {
+    } elseif ($arg == '-m' || $arg == '--metadata') {
+        $metadata_dir = $argv[$i+1];
+        $i++;
+    } elseif ($arg == '-t' || $arg == '--temp') {
         $temp_dir = $argv[$i+1];
+        $i++;
+    } elseif ($arg == '-A' || $arg == '--data') {
+        $data_dir = $argv[$i+1];
+        $i++;
+    } elseif ($arg == '-D' || $arg == '--doc') {
+        $doc_dir = $argv[$i+1];
+        $i++;
+    } elseif ($arg == '-T' || $arg == '--test') {
+        $test_dir = $argv[$i+1];
         $i++;
     } elseif ($arg == '--debug') {
         $debug = 1;
@@ -131,13 +143,38 @@ if (!empty($temp_dir)) {
     $config->set('temp_dir', $temp_dir, 'default');
 }
 
+// Documentation files
+if (!empty($doc_dir)) {
+    $config->set('doc_dir', $doc_dir, 'default');
+}
+
+// Data files
+if (!empty($data_dir)) {
+    $config->set('data_dir', $data_dir, 'default');
+}
+
+// Unit tests
+if (!empty($test_dir)) {
+    $config->set('test_dir', $test_dir, 'default');
+}
+
 // User supplied a dir prefix
 if (!empty($with_dir)) {
     $ds = DIRECTORY_SEPARATOR;
     $config->set('php_dir', $with_dir, 'default');
-    $config->set('doc_dir', $with_dir . $ds . 'doc', 'default');
-    $config->set('data_dir', $with_dir . $ds . 'data', 'default');
-    $config->set('test_dir', $with_dir . $ds . 'test', 'default');
+    // Metadata
+    if (!empty($metadata_dir)) {
+        $config->set('metadata_dir', $metadata_dir, 'default');
+    }
+    if (empty($doc_dir)) {
+        $config->set('doc_dir', $with_dir . $ds . 'doc', 'default');
+    }
+    if (empty($data_dir)) {
+        $config->set('data_dir', $with_dir . $ds . 'data', 'default');
+    }
+    if (empty($test_dir)) {
+        $config->set('test_dir', $with_dir . $ds . 'test', 'default');
+    }
     if (empty($www_dir)) {
         $config->set('www_dir', $with_dir . $ds . 'htdocs', 'default');
     }
@@ -200,7 +237,7 @@ $options['upgrade'] = true;
 $install_root = getenv('INSTALL_ROOT');
 if (!empty($install_root)) {
     $options['packagingroot'] = $install_root;
-    $reg = &new PEAR_Registry($options['packagingroot']);
+    $reg = &new PEAR_Registry($options['packagingroot'], false, false, $metadata_dir);
 } else {
     $reg = $config->getRegistry('default');
 }

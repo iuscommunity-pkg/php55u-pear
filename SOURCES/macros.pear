@@ -13,6 +13,7 @@
 %pear_datadir %(%{__pear} config-get data_dir 2> /dev/null || echo undefined)
 %pear_cfgdir  %(%{__pear} config-get cfg_dir  2> /dev/null || echo undefined)
 %pear_wwwdir  %(%{__pear} config-get www_dir  2> /dev/null || echo undefined)
+%pear_metadir %(%{__pear} config-get metadata_dir 2> /dev/null || echo undefined)
 
 #
 # Define PECL directories used in php-pecl-* spec files:
@@ -25,8 +26,8 @@
 #
 # Define XML directories to store package registration information:
 #
-%pear_xmldir %{pear_phpdir}/.pkgxml
-%pecl_xmldir %{pecl_phpdir}/.pkgxml
+%pear_xmldir %{_localstatedir}/lib/pear/pkgxml
+%pecl_xmldir %{_localstatedir}/lib/pear/pkgxml
 
 #
 # Define macros to be used in scriplets for php-pecl-* spec files:
