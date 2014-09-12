@@ -17,8 +17,8 @@
 
 Summary: PHP Extension and Application Repository framework
 Name: %{php_base}-pear
-Version: 1.9.4
-Release: 20.ius%{?dist}
+Version: 1.9.5
+Release: 1.ius%{?dist}
 Epoch: 1
 # PEAR, Archive_Tar, XML_Util are BSD
 # Console_Getopt is PHP
@@ -54,7 +54,6 @@ Patch0: php-pear-1.9.4-restcache.patch
 Patch1: php-pear-metadata.patch
 
 BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildRequires: %{php_base}-cli
 BuildRequires: %{php_base}-xml
 BuildRequires: gnupg
@@ -103,6 +102,7 @@ Requires:  %{php_base}-bz2
 PEAR is a framework and distribution system for reusable PHP
 components.  This package contains the basic PEAR components.
 
+
 %prep
 %setup -cT
 
@@ -129,8 +129,6 @@ cp %{SOURCE1} %{SOURCE30} %{SOURCE31} %{SOURCE32} %{SOURCE33} .
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
 export PHP_PEAR_SYSCONF_DIR=%{_sysconfdir}
 export PHP_PEAR_SIG_KEYDIR=%{_sysconfdir}/pearkeys
 export PHP_PEAR_SIG_BIN=%{_bindir}/gpg
@@ -228,11 +226,6 @@ echo 'Test suite disabled (missing "--with tests" option)'
 %endif
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-rm new-pear.conf
-
-
 %pre
 # Manage relocation of metadata, before update to pear
 if [ -d %{peardir}/.registry -a ! -d %{metadir}/.registry ]; then
@@ -272,7 +265,6 @@ fi
 
 
 %files
-%defattr(-,root,root,-)
 %{peardir}
 %dir %{metadir}
 %{metadir}/.channels
@@ -301,6 +293,13 @@ fi
 
 
 %changelog
+* Fri Sep 12 2014 Carl George <carl.george@rackspace.com> - 1:1.9.5-1.ius
+- Latest upstream
+- Update Archive_Tar to 1.3.13
+- Update XML_Util to 1.2.3
+- Clean up requirements and provides
+- Add pear.conf man page
+
 * Thu Jul 11 2013 Ben Harper <ben.harper@rackspace.com> -  1:1.9.4-20.ius
 - porting from php-pear-1.9.4-20.fc20.src.rpm
 
