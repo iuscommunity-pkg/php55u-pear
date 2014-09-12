@@ -55,9 +55,11 @@ Patch1: php-pear-metadata.patch
 
 BuildArch: noarch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: %{php_base}-cli, %{php_base}-xml, gnupg
+BuildRequires: %{php_base}-cli
+BuildRequires: %{php_base}-xml
+BuildRequires: gnupg
 %if %{with_tests}
-BuildRequires:  php-pear(pear.phpunit.de/PHPUnit)
+BuildRequires:  %{_bindir}/phpunit
 %endif
 
 Provides: php-pear(Console_Getopt) = %{getoptver}
