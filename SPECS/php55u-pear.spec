@@ -14,10 +14,9 @@
 
 %define php_base php55u
 %define real_name php-pear
-%define name %{php_base}-pear
 
 Summary: PHP Extension and Application Repository framework
-Name: %{name}
+Name: %{php_base}-pear
 Version: 1.9.4
 Release: 20.ius%{?dist}
 Epoch: 1
