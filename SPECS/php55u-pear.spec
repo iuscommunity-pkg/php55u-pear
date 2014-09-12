@@ -6,7 +6,7 @@
 # https://pear.php.net/bugs/bug.php?id=19367
 # Structures_Graph 1.0.4 - incorrect FSF address
 %global structver 1.0.4
-%global xmlutil   1.2.1
+%global xmlutil   1.2.3
 
 # Tests are only run with rpmbuild --with tests
 # Can't be run in mock / koji because PEAR is the first package
