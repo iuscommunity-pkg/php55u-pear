@@ -68,12 +68,13 @@ Provides: php-pear(PEAR) = %{version}
 Provides: php-pear(Structures_Graph) = %{structver}
 Provides: php-pear(XML_Util) = %{xmlutil}
 Provides: php-pear-XML-Util = %{xmlutil}
+
 Provides: %{php_base}-pear(Console_Getopt) = %{getoptver}
 Provides: %{php_base}-pear(Archive_Tar) = %{arctarver}
 Provides: %{php_base}-pear(PEAR) = %{version}
 Provides: %{php_base}-pear(Structures_Graph) = %{structver}
 Provides: %{php_base}-pear(XML_Util) = %{xmlutil}
-Provides: %{php_base}-pear-XML-Util = %{xmlutil}-%{release}: php-pear-XML-Util < %{xmlutil}
+Provides: %{php_base}-pear-XML-Util = %{xmlutil}-%{release}
 
 
 Requires:  %{php_base}-cli
