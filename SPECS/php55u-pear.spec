@@ -18,7 +18,7 @@
 Summary: PHP Extension and Application Repository framework
 Name: %{php_base}-pear
 Version: 1.9.5
-Release: 1.ius%{?dist}
+Release: 2.ius%{?dist}
 Epoch: 1
 # PEAR, Archive_Tar, XML_Util are BSD
 # Console_Getopt is PHP
@@ -80,7 +80,7 @@ Requires:  %{php_base}-cli
 
 # IUS Stuff
 Provides: %{real_name} = %{version}
-Conflicts: %{real_name} < %{basever}
+Conflicts: %{real_name} < %{version}
 
 # phpci detected extension
 # PEAR (date, spl always builtin):
@@ -293,6 +293,9 @@ fi
 
 
 %changelog
+* Wed Oct 15 2014 Carl George <carl.george@rackspace.com> - 1:1.9.5-2.ius
+- Conflict with less than %%{version}, not %%{basever}
+
 * Fri Sep 12 2014 Carl George <carl.george@rackspace.com> - 1:1.9.5-1.ius
 - Latest upstream
 - Update Archive_Tar to 1.3.13
