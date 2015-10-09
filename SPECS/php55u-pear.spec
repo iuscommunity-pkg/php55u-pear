@@ -44,13 +44,6 @@ Source32: peardev.1
 # https://github.com/pear/pear-core/pull/16
 Source33: pear.conf.5
 
-
-# From RHEL: ignore REST cache creation failures as non-root user (#747361)
-# TODO See https://github.com/pear/pear-core/commit/dfef86e05211d2abc7870209d69064d448ef53b3#PEAR/REST.php
-Patch0: php-pear-1.9.4-restcache.patch
-# Relocate Metadata
-Patch1: php-pear-metadata.patch
-
 BuildArch: noarch
 BuildRequires: %{php_base}-cli
 BuildRequires: %{php_base}-xml
@@ -118,10 +111,6 @@ do
 done
 cp %{SOURCE1} %{SOURCE30} %{SOURCE31} %{SOURCE32} %{SOURCE33} .
 
-# apply patches on used PEAR during install
-%patch1 -p0 -b .metadata
-
-
 %build
 # This is an empty build section.
 
@@ -175,14 +164,6 @@ install -m 755 %{SOURCE12} $RPM_BUILD_ROOT%{_bindir}/peardev
 
 install -m 644 -c %{SOURCE13} \
            $RPM_BUILD_ROOT%{_sysconfdir}/rpm/macros.pear     
-
-# apply patches on installed PEAR tree
-pushd $RPM_BUILD_ROOT%{peardir} 
- pushd PEAR
-  %__patch -s --no-backup --fuzz 0 -p0 < %{PATCH0}
- popd
-  %__patch -s --no-backup --fuzz 0 -p0 < %{PATCH1}
-popd
 
 # Why this file here ?
 rm -rf $RPM_BUILD_ROOT/.depdb* $RPM_BUILD_ROOT/.lock $RPM_BUILD_ROOT/.channels $RPM_BUILD_ROOT/.filemap
@@ -298,6 +279,7 @@ fi
 - Update Structures_Graph to 1.1.1
 - Update Console_Getopt to 1.4.1
 - Update install-pear.php
+- Remove patches, fixed upstream
 
 * Wed Oct 15 2014 Carl George <carl.george@rackspace.com> - 1:1.9.5-2.ius
 - Conflict with less than %%{version}, not %%{basever}
