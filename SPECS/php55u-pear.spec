@@ -1,12 +1,10 @@
 %global peardir %{_datadir}/pear
 %global metadir %{_localstatedir}/lib/pear
 
-%global getoptver 1.3.1
-%global arctarver 1.3.13
-# https://pear.php.net/bugs/bug.php?id=19367
-# Structures_Graph 1.0.4 - incorrect FSF address
-%global structver 1.0.4
-%global xmlutil   1.2.3
+%global getoptver 1.4.1
+%global arctarver 1.4.0
+%global structver 1.1.1
+%global xmlutil   1.3.0
 
 # Tests are only run with rpmbuild --with tests
 # Can't be run in mock / koji because PEAR is the first package
@@ -17,8 +15,8 @@
 
 Summary: PHP Extension and Application Repository framework
 Name: %{php_base}-pear
-Version: 1.9.5
-Release: 2.ius%{?dist}
+Version: 1.10.0
+Release: 1.ius%{?dist}
 Epoch: 1
 # PEAR, Archive_Tar, XML_Util are BSD
 # Console_Getopt is PHP
@@ -293,6 +291,14 @@ fi
 
 
 %changelog
+* Fri Oct 09 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.0-1.ius
+- Latest upstream
+- Update Archive_Tar to 1.4.0
+- Update XML_Util to 1.3.0
+- Update Structures_Graph to 1.1.1
+- Update Console_Getopt to 1.4.1
+- Update install-pear.php
+
 * Wed Oct 15 2014 Carl George <carl.george@rackspace.com> - 1:1.9.5-2.ius
 - Conflict with less than %%{version}, not %%{basever}
 
