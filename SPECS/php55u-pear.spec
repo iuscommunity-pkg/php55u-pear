@@ -5,6 +5,8 @@
 %global arctarver 1.4.0
 %global structver 1.1.1
 %global xmlutil   1.3.0
+# all changes to man pages came from http://pkgs.fedoraproject.org/cgit/php-pear.git/commit/?id=ee18e3c185edb01c98517f5188fd802411170397
+%global manpages 1.10.0
 
 # Tests are only run with rpmbuild --with tests
 # Can't be run in mock / koji because PEAR is the first package
@@ -18,7 +20,7 @@ Name: %{php_base}-pear
 Version: 1.10.0
 Release: 1.ius%{?dist}
 Epoch: 1
-# PEAR, Archive_Tar, XML_Util are BSD
+# PEAR, PEAR_Manpages, Archive_Tar, XML_Util are BSD
 # Console_Getopt is PHP
 # Structures_Graph is LGPLv2+
 License: BSD and PHP and LGPLv2+
@@ -37,12 +39,7 @@ Source22: http://pear.php.net/get/Console_Getopt-%{getoptver}.tgz
 Source23: http://pear.php.net/get/Structures_Graph-%{structver}.tgz
 Source24: http://pear.php.net/get/XML_Util-%{xmlutil}.tgz
 # Man pages
-# https://github.com/pear/pear-core/pull/14
-Source30: pear.1
-Source31: pecl.1
-Source32: peardev.1
-# https://github.com/pear/pear-core/pull/16
-Source33: pear.conf.5
+Source25: http://pear.php.net/get/PEAR_Manpages-%{manpages}.tgz
 
 BuildArch: noarch
 BuildRequires: %{php_base}-cli
@@ -109,7 +106,7 @@ do
     [ -f package2.xml ] && mv package2.xml ${file%%-*}.xml \
                         || mv package.xml  ${file%%-*}.xml
 done
-cp %{SOURCE1} %{SOURCE30} %{SOURCE31} %{SOURCE32} %{SOURCE33} .
+cp %{SOURCE1} .
 
 %build
 # This is an empty build section.
@@ -148,7 +145,8 @@ export INSTALL_ROOT=$RPM_BUILD_ROOT
                  --test     %{_datadir}/tests/pear \
                  --data     %{_datadir}/pear-data \
                  --metadata %{metadir} \
-                 %{SOURCE0} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24}
+                 --man %{_mandir} \
+                 %{SOURCE0} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25}
 
 # Replace /usr/bin/* with simple scripts:
 install -m 755 %{SOURCE10} $RPM_BUILD_ROOT%{_bindir}/pear
@@ -170,13 +168,6 @@ rm -rf $RPM_BUILD_ROOT/.depdb* $RPM_BUILD_ROOT/.lock $RPM_BUILD_ROOT/.channels $
 
 # Need for re-registrying XML_Util
 install -m 644 *.xml $RPM_BUILD_ROOT%{_localstatedir}/lib/pear/pkgxml
-
-# The man pages
-install -d $RPM_BUILD_ROOT%{_mandir}/man1
-install -p -m 644 pear.1 pecl.1 peardev.1 $RPM_BUILD_ROOT%{_mandir}/man1/
-install -d $RPM_BUILD_ROOT%{_mandir}/man5
-install -p -m 644 pear.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5/
-
 
 %check
 # Check that no bogus paths are left in the configuration, or in
@@ -280,6 +271,7 @@ fi
 - Update Console_Getopt to 1.4.1
 - Update install-pear.php
 - Remove patches, fixed upstream
+- use PEAR_Manpages for man pages, taken from http://pkgs.fedoraproject.org/cgit/php-pear.git/commit/?id=ee18e3c185edb01c98517f5188fd802411170397 Thanks Remi
 
 * Wed Oct 15 2014 Carl George <carl.george@rackspace.com> - 1:1.9.5-2.ius
 - Conflict with less than %%{version}, not %%{basever}
