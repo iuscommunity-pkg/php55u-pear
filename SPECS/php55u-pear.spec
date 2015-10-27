@@ -17,7 +17,7 @@
 
 Summary: PHP Extension and Application Repository framework
 Name: %{php_base}-pear
-Version: 1.10.0
+Version: 1.10.1
 Release: 1.ius%{?dist}
 Epoch: 1
 # PEAR, PEAR_Manpages, Archive_Tar, XML_Util are BSD
@@ -263,6 +263,9 @@ fi
 
 
 %changelog
+* Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
+- Latest upstream
+
 * Fri Oct 09 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.0-1.ius
 - Latest upstream
 - Update Archive_Tar to 1.4.0
