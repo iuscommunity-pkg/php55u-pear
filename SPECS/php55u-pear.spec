@@ -60,12 +60,14 @@ Provides: php-pear(Archive_Tar) = %{arctarver}
 Provides: php-pear(PEAR) = %{version}
 Provides: php-pear(Structures_Graph) = %{structver}
 Provides: php-pear(XML_Util) = %{xmlutil}
+Provides: php-pear(PEAR_Manpages) = %{manpages}
 Provides: php-pear-XML-Util = %{xmlutil}
 Provides: %{php_base}-pear(Console_Getopt) = %{getoptver}
 Provides: %{php_base}-pear(Archive_Tar) = %{arctarver}
 Provides: %{php_base}-pear(PEAR) = %{version}
 Provides: %{php_base}-pear(Structures_Graph) = %{structver}
 Provides: %{php_base}-pear(XML_Util) = %{xmlutil}
+Provides: %{php_base}-pear(PEAR_Manpages) = %{manpages}
 Provides: %{php_base}-pear-XML-Util = %{xmlutil}-%{release}
 
 Requires:  %{php_base}-cli
@@ -274,6 +276,7 @@ fi
 - Use correct macros directory on EL7
 - Use correct licenses directory on EL7
 - Include Source25 (PEAR_Manpages) in tarball strip for loop
+- Provide php*-pear(PEAR_Manpages)
 
 * Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
 - Latest upstream
