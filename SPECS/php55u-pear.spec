@@ -68,6 +68,17 @@ Provides: %{php_base}-pear(XML_Util) = %{xmlutil}
 Provides: %{php_base}-pear(PEAR_Manpages) = %{manpages}
 Provides: %{php_base}-pear-XML-Util = %{xmlutil}-%{release}
 
+Provides: php-composer(pear/console_getopt) = %{getoptver}
+Provides: php-composer(pear/archive_tar) = %{arctarver}
+Provides: php-composer(pear/pear-core-minimal) = %{version}
+Provides: php-composer(pear/structures_graph) = %{structver}
+Provides: php-composer(pear/xml_util) = %{xmlutil}
+Provides: %{php_base}-composer(pear/console_getopt) = %{getoptver}
+Provides: %{php_base}-composer(pear/archive_tar) = %{arctarver}
+Provides: %{php_base}-composer(pear/pear-core-minimal) = %{version}
+Provides: %{php_base}-composer(pear/structures_graph) = %{structver}
+Provides: %{php_base}-composer(pear/xml_util) = %{xmlutil}
+
 Requires:  %{php_base}-cli
 
 # IUS Stuff
@@ -299,6 +310,7 @@ fi
 - Console_Getopt is BSD license, Structures_Graph is LGPLv3+ license
 - Set pecl doc_dir to /usr/share/doc/pecl (Fedora)
 - Set pecl test_dir to /usr/share/tests/pecl (Fedora)
+- Add composer provides (Fedora)
 
 * Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
 - Latest upstream
