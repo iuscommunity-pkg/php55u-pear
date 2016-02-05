@@ -1,10 +1,8 @@
 <?php
-while (@ob_end_flush());
-/* $Id$ */
 
 error_reporting(1803);
 
-if (ini_get('date.timezone') === '' && function_exists('date_default_timezone_set')) {
+if (ini_get('date.timezone') === '') {
     date_default_timezone_set('UTC');
 }
 
@@ -170,6 +168,7 @@ if (!empty($test_dir)) {
 if (!empty($with_dir)) {
     $ds = DIRECTORY_SEPARATOR;
     $config->set('php_dir', $with_dir, 'default');
+
     // Metadata
     if (!empty($metadata_dir)) {
         $config->set('metadata_dir', $metadata_dir, 'default');
@@ -248,7 +247,7 @@ $options['upgrade'] = true;
 $install_root = getenv('INSTALL_ROOT');
 if (!empty($install_root)) {
     $options['packagingroot'] = $install_root;
-    $reg = &new PEAR_Registry($options['packagingroot'], false, false, $metadata_dir);
+    $reg = new PEAR_Registry($options['packagingroot'], false, false, $metadata_dir);
 } else {
     $reg = $config->getRegistry('default');
 }
