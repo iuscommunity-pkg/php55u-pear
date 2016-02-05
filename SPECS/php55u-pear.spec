@@ -99,7 +99,7 @@ components.  This package contains the basic PEAR components.
 %setup -cT
 
 # Create a usable PEAR directory (used by install-pear.php)
-for archive in %{SOURCE0} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24}
+for archive in %{SOURCE0} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25}
 do
     tar xzf  $archive --strip-components 1 || tar xzf  $archive --strip-path 1
     file=${archive##*/}
@@ -273,6 +273,7 @@ fi
 * Thu Feb 04 2016 Carl George <carl.george@rackspace.com> - 1:1.10.1-2.ius
 - Use correct macros directory on EL7
 - Use correct licenses directory on EL7
+- Include Source25 (PEAR_Manpages) in tarball strip for loop
 
 * Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
 - Latest upstream
