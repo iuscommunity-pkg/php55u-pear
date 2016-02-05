@@ -133,6 +133,7 @@ install -d $RPM_BUILD_ROOT%{peardir} \
            $RPM_BUILD_ROOT%{_localstatedir}/cache/php-pear \
            $RPM_BUILD_ROOT%{_localstatedir}/www/html \
            $RPM_BUILD_ROOT%{_localstatedir}/lib/pear/pkgxml \
+           $RPM_BUILD_ROOT%{_docdir}/pecl \
            $RPM_BUILD_ROOT%{_sysconfdir}/pear
 
 export INSTALL_ROOT=$RPM_BUILD_ROOT
@@ -232,6 +233,14 @@ if [ "$current" != "%{metadir}" ]; then
     system >/dev/null || :
 fi
 
+current=$(%{_bindir}/pear config-get -c pecl doc_dir system)
+if [ "$current" != "%{_docdir}/pecl" ]; then
+%{_bindir}/pear config-set \
+    -c pecl \
+    doc_dir %{_docdir}/pecl \
+    system >/dev/null || :
+fi
+
 
 %triggerpostun -- php-pear-XML-Util
 # re-register extension unregistered during postun of obsoleted php-pear-XML-Util
@@ -260,6 +269,7 @@ fi
 %doc README*
 %dir %{_docdir}/pear
 %doc %{_docdir}/pear/*
+%dir %{_docdir}/pecl
 %dir %{_datadir}/tests
 %{_datadir}/tests/pear
 %{_datadir}/pear-data
@@ -277,6 +287,7 @@ fi
 - Provide php*-pear(PEAR_Manpages)
 - Change Source1 to a direct url (credit: Steven Barre), fetch current version
 - Console_Getopt is BSD license, Structures_Graph is LGPLv3+ license
+- Set pecl doc_dir to /usr/share/doc/pecl (Fedora)
 
 * Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
 - Latest upstream
