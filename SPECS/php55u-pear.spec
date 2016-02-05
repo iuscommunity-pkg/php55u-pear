@@ -280,7 +280,6 @@ fi
 %config(noreplace) %{_sysconfdir}/pear.conf
 %{_macrosdir}/macros.pear
 %dir %{_localstatedir}/cache/php-pear
-%dir %{_localstatedir}/www/html
 %dir %{_sysconfdir}/pear
 %{!?_licensedir:%global license %%doc}
 %license LICENSE*
@@ -311,6 +310,7 @@ fi
 - Add composer provides (Fedora)
 - Cleanup registry after removal (Fedora)
 - Drop old php-pear-XML-Util scriptlets (Fedora)
+- Remove /var/www/html ownership
 
 * Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
 - Latest upstream
