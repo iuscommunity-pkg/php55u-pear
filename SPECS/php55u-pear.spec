@@ -255,7 +255,9 @@ fi
 %dir %{_localstatedir}/cache/php-pear
 %dir %{_localstatedir}/www/html
 %dir %{_sysconfdir}/pear
-%doc README* LICENSE*
+%{!?_licensedir:%global license %%doc}
+%license LICENSE*
+%doc README*
 %dir %{_docdir}/pear
 %doc %{_docdir}/pear/*
 %dir %{_datadir}/tests
@@ -270,6 +272,7 @@ fi
 %changelog
 * Thu Feb 04 2016 Carl George <carl.george@rackspace.com> - 1:1.10.1-2.ius
 - Use correct macros directory on EL7
+- Use correct licenses directory on EL7
 
 * Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
 - Latest upstream
