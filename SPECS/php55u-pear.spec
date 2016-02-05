@@ -26,10 +26,9 @@ Name: %{php_base}-pear
 Version: 1.10.1
 Release: 2.ius%{?dist}
 Epoch: 1
-# PEAR, PEAR_Manpages, Archive_Tar, XML_Util are BSD
-# Console_Getopt is PHP
-# Structures_Graph is LGPLv2+
-License: BSD and PHP and LGPLv2+
+# PEAR, PEAR_Manpages, Archive_Tar, XML_Util, Console_Getopt are BSD
+# Structures_Graph is LGPLv3+
+License: BSD and LGPLv3+
 Group: Development/Languages
 URL: http://pear.php.net/package/PEAR
 Source0: http://download.pear.php.net/package/PEAR-%{version}.tgz
@@ -277,6 +276,7 @@ fi
 - Include Source25 (PEAR_Manpages) in tarball strip for loop
 - Provide php*-pear(PEAR_Manpages)
 - Change Source1 to a direct url (credit: Steven Barre), fetch current version
+- Console_Getopt is BSD license, Structures_Graph is LGPLv3+ license
 
 * Tue Oct 27 2015 Ben Harper <ben.harper@rackspace.com> - 1:1.10.1-1.ius
 - Latest upstream
