@@ -6,7 +6,7 @@
 %global structver 1.1.1
 %global xmlutil   1.3.0
 # all changes to man pages came from http://pkgs.fedoraproject.org/cgit/php-pear.git/commit/?id=ee18e3c185edb01c98517f5188fd802411170397
-%global manpages 1.10.0
+%global manpages  1.10.0
 
 # Tests are only run with rpmbuild --with tests
 # Can't be run in mock / koji because PEAR is the first package
@@ -55,14 +55,12 @@ Provides: php-pear(PEAR) = %{version}
 Provides: php-pear(Structures_Graph) = %{structver}
 Provides: php-pear(XML_Util) = %{xmlutil}
 Provides: php-pear-XML-Util = %{xmlutil}
-
 Provides: %{php_base}-pear(Console_Getopt) = %{getoptver}
 Provides: %{php_base}-pear(Archive_Tar) = %{arctarver}
 Provides: %{php_base}-pear(PEAR) = %{version}
 Provides: %{php_base}-pear(Structures_Graph) = %{structver}
 Provides: %{php_base}-pear(XML_Util) = %{xmlutil}
 Provides: %{php_base}-pear-XML-Util = %{xmlutil}-%{release}
-
 
 Requires:  %{php_base}-cli
 
@@ -108,6 +106,7 @@ do
 done
 cp %{SOURCE1} .
 
+
 %build
 # This is an empty build section.
 
@@ -145,7 +144,7 @@ export INSTALL_ROOT=$RPM_BUILD_ROOT
                  --test     %{_datadir}/tests/pear \
                  --data     %{_datadir}/pear-data \
                  --metadata %{metadir} \
-                 --man %{_mandir} \
+                 --man      %{_mandir} \
                  %{SOURCE0} %{SOURCE21} %{SOURCE22} %{SOURCE23} %{SOURCE24} %{SOURCE25}
 
 # Replace /usr/bin/* with simple scripts:
@@ -168,6 +167,7 @@ rm -rf $RPM_BUILD_ROOT/.depdb* $RPM_BUILD_ROOT/.lock $RPM_BUILD_ROOT/.channels $
 
 # Need for re-registrying XML_Util
 install -m 644 *.xml $RPM_BUILD_ROOT%{_localstatedir}/lib/pear/pkgxml
+
 
 %check
 # Check that no bogus paths are left in the configuration, or in
@@ -239,9 +239,9 @@ fi
 %dir %{metadir}
 %{metadir}/.channels
 %verify(not mtime size md5) %{metadir}/.depdb
-%verify(not mtime)%{metadir}/.depdblock
-%verify(not mtime size md5)%{metadir}/.filemap
-%verify(not mtime)%{metadir}/.lock
+%verify(not mtime)          %{metadir}/.depdblock
+%verify(not mtime size md5) %{metadir}/.filemap
+%verify(not mtime)          %{metadir}/.lock
 %{metadir}/.registry
 %{metadir}/pkgxml
 %{_bindir}/*
